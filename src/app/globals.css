@@ -1,0 +1,224 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── Custom Theme — Dark Purple + Ice White (dual mode) ── */
+@theme inline {
+  /* Brand Colors — switch with theme via CSS vars */
+  --color-bg-deep: var(--th-bg-deep);
+  --color-bg-purple: var(--th-bg-purple);
+  --color-bg-purple-light: var(--th-bg-card);
+  --color-nav: var(--th-nav);
+  --color-nav-border: var(--th-nav-border);
+  --color-ice: var(--th-ice);
+  --color-ice-soft: var(--th-ice-soft);
+  --color-text-primary: var(--th-text-primary);
+  --color-text-secondary: var(--th-text-secondary);
+  --color-text-muted: var(--th-text-muted);
+
+  /* Semantic glass colors — for borders & subtle fills */
+  --color-subtle: var(--th-subtle);
+  --color-subtle-hover: var(--th-subtle-hover);
+
+  /* Accent colors — constant across themes */
+  --color-accent: #8b5cf6;
+  --color-accent-bright: #a78bfa;
+  --color-accent-glow: rgba(139, 92, 246, 0.4);
+  --color-accent-deep: #6d28d9;
+
+  /* Fonts */
+  --font-display: var(--font-red-hat-display), "Red Hat Display", system-ui, sans-serif;
+  --font-body: var(--font-glacial), "Glacial Indifference", system-ui, sans-serif;
+
+  /* shadcn overrides */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-glacial), "Glacial Indifference", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+/* ── Typography Scale (Title 1x : Subtitle 1:2 : Text 1:3) ── */
+:root {
+  --fs-title: 3rem;      /* 48px */
+  --fs-subtitle: 1.5rem; /* 24px — 1:2 */
+  --fs-text: 1rem;       /* 16px — 1:3 */
+  --radius: 0.625rem;
+
+  /* ── Light theme (default) ── */
+  --th-bg-deep: #f5f3ff;
+  --th-bg-purple: #ede9fe;
+  --th-bg-card: #ffffff;
+  --th-nav: #ffffff;
+  --th-nav-border: rgba(139, 92, 246, 0.1);
+  --th-ice: #1a0e35;
+  --th-ice-soft: #2d1f52;
+  --th-text-primary: #1a0e35;
+  --th-text-secondary: #4a3f6b;
+  --th-text-muted: #7b7394;
+  --th-subtle: rgba(139, 92, 246, 0.1);
+  --th-subtle-hover: rgba(139, 92, 246, 0.14);
+
+  --body-bg: linear-gradient(165deg, #f5f3ff 0%, #ede9fe 40%, #f0f4ff 100%);
+  --nav-shadow: 0 4px 30px rgba(139, 92, 246, 0.08);
+
+  /* shadcn light */
+  --background: #f5f3ff;
+  --foreground: #1a0e35;
+  --card: #ffffff;
+  --card-foreground: #1a0e35;
+  --popover: #ffffff;
+  --popover-foreground: #1a0e35;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: #ede9fe;
+  --secondary-foreground: #1a0e35;
+  --muted: #ede9fe;
+  --muted-foreground: #7b7394;
+  --accent: #f3f0ff;
+  --accent-foreground: #1a0e35;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(139, 92, 246, 0.1);
+  --input: rgba(139, 92, 246, 0.1);
+  --ring: #8b5cf6;
+  --chart-1: #8b5cf6;
+  --chart-2: #a78bfa;
+  --chart-3: #c4b5fd;
+  --chart-4: #6d28d9;
+  --chart-5: #7c3aed;
+  --sidebar: #f5f3ff;
+  --sidebar-foreground: #1a0e35;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ede9fe;
+  --sidebar-accent-foreground: #1a0e35;
+  --sidebar-border: rgba(139, 92, 246, 0.08);
+  --sidebar-ring: #8b5cf6;
+}
+
+/* ── Dark theme ── */
+.dark {
+  --th-bg-deep: #06010f;
+  --th-bg-purple: #0d0520;
+  --th-bg-card: #160a30;
+  --th-nav: #110826;
+  --th-nav-border: rgba(255, 255, 255, 0.06);
+  --th-ice: #f0f4ff;
+  --th-ice-soft: #dde4f0;
+  --th-text-primary: #f0f4ff;
+  --th-text-secondary: #b8c4e0;
+  --th-text-muted: #6b7394;
+  --th-subtle: rgba(255, 255, 255, 0.06);
+  --th-subtle-hover: rgba(255, 255, 255, 0.08);
+
+  --body-bg: linear-gradient(165deg, #06010f 0%, #0a0320 40%, #0d0520 100%);
+  --nav-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+
+  /* shadcn dark */
+  --background: #06010f;
+  --foreground: #f0f4ff;
+  --card: #160a30;
+  --card-foreground: #f0f4ff;
+  --popover: #160a30;
+  --popover-foreground: #f0f4ff;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: #110826;
+  --secondary-foreground: #f0f4ff;
+  --muted: #110826;
+  --muted-foreground: #6b7394;
+  --accent: #1e0a47;
+  --accent-foreground: #f0f4ff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(139, 92, 246, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #8b5cf6;
+  --chart-1: #8b5cf6;
+  --chart-2: #a78bfa;
+  --chart-3: #c4b5fd;
+  --chart-4: #6d28d9;
+  --chart-5: #7c3aed;
+  --sidebar: #050010;
+  --sidebar-foreground: #f0f4ff;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #110826;
+  --sidebar-accent-foreground: #f0f4ff;
+  --sidebar-border: rgba(139, 92, 246, 0.08);
+  --sidebar-ring: #8b5cf6;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply text-foreground antialiased;
+    background: var(--body-bg);
+    min-height: 100vh;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+}
+
+/* ── Grain overlay ── */
+.grain-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: var(--grain-opacity, 0.03);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+:root {
+  --grain-opacity: 0.015;
+}
+.dark {
+  --grain-opacity: 0.03;
+}
+
+/* ── Glow effects ── */
+.glow-purple {
+  box-shadow: 0 0 60px rgba(139, 92, 246, 0.15), 0 0 120px rgba(139, 92, 246, 0.05);
+}
+
+.glow-line {
+  background: linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.3) 50%, transparent 100%);
+}
