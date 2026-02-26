@@ -7,7 +7,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function CtaSection() {
   return (
-    <section id="contact" className="relative py-28">
+    <section id="contact" className="section-blend relative py-28">
       {/* Decorative separator */}
       <div className="mx-auto mb-20 h-px max-w-5xl glow-line" />
 
@@ -36,7 +36,7 @@ export default function CtaSection() {
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href="mailto:info@flowsyncai.com"
-            className="group inline-flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-accent to-accent-deep px-8 py-4 font-body text-base font-medium text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.4)] hover:scale-[1.02]"
+            className="group inline-flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-accent to-accent-deep px-8 py-4 font-body text-base font-medium text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(94,88,213,0.4)] hover:scale-[1.02]"
           >
             Inizia una conversazione
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

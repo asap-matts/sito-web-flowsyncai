@@ -47,7 +47,7 @@ const cardVariants = {
 
 export default function ServicesSection() {
   return (
-    <section id="services" className="relative py-28">
+    <section id="services" className="section-blend relative py-28">
       {/* Decorative glow */}
       <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-accent/[0.04] blur-[120px]" />
 
@@ -82,7 +82,7 @@ export default function ServicesSection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
-              className="group relative rounded-2xl border border-subtle bg-bg-purple-light/50 p-7 backdrop-blur-sm transition-all duration-500 hover:border-accent/20 hover:bg-bg-purple-light/80 hover:shadow-[0_0_40px_rgba(139,92,246,0.08)]"
+              className="group relative rounded-2xl border border-subtle bg-bg-purple-light/50 p-7 backdrop-blur-sm transition-all duration-500 hover:border-accent/20 hover:bg-bg-purple-light/80 hover:shadow-[0_0_40px_rgba(94,88,213,0.08)]"
             >
               {/* Icon */}
               <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent-bright transition-colors duration-300 group-hover:bg-accent/20">

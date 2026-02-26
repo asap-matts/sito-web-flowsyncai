@@ -2,9 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
 
-/* ── Custom Theme — Dark Purple + Ice White (dual mode) ── */
+/* ── Custom Theme — Dark Purple + Ice White ── */
 @theme inline {
   /* Brand Colors — switch with theme via CSS vars */
   --color-bg-deep: var(--th-bg-deep);
@@ -23,10 +22,10 @@
   --color-subtle-hover: var(--th-subtle-hover);
 
   /* Accent colors — constant across themes */
-  --color-accent: #8b5cf6;
-  --color-accent-bright: #a78bfa;
-  --color-accent-glow: rgba(139, 92, 246, 0.4);
-  --color-accent-deep: #6d28d9;
+  --color-accent: #5E58D5;
+  --color-accent-bright: #7E7AE0;
+  --color-accent-glow: rgba(94, 88, 213, 0.4);
+  --color-accent-deep: #4540B0;
 
   /* Fonts */
   --font-display: var(--font-red-hat-display), "Red Hat Display", system-ui, sans-serif;
@@ -81,59 +80,7 @@
   --fs-text: 1rem;       /* 16px — 1:3 */
   --radius: 0.625rem;
 
-  /* ── Light theme (default) ── */
-  --th-bg-deep: #f5f3ff;
-  --th-bg-purple: #ede9fe;
-  --th-bg-card: #ffffff;
-  --th-nav: #ffffff;
-  --th-nav-border: rgba(139, 92, 246, 0.1);
-  --th-ice: #1a0e35;
-  --th-ice-soft: #2d1f52;
-  --th-text-primary: #1a0e35;
-  --th-text-secondary: #4a3f6b;
-  --th-text-muted: #7b7394;
-  --th-subtle: rgba(139, 92, 246, 0.1);
-  --th-subtle-hover: rgba(139, 92, 246, 0.14);
-
-  --body-bg: linear-gradient(165deg, #f5f3ff 0%, #ede9fe 40%, #f0f4ff 100%);
-  --nav-shadow: 0 4px 30px rgba(139, 92, 246, 0.08);
-
-  /* shadcn light */
-  --background: #f5f3ff;
-  --foreground: #1a0e35;
-  --card: #ffffff;
-  --card-foreground: #1a0e35;
-  --popover: #ffffff;
-  --popover-foreground: #1a0e35;
-  --primary: #8b5cf6;
-  --primary-foreground: #ffffff;
-  --secondary: #ede9fe;
-  --secondary-foreground: #1a0e35;
-  --muted: #ede9fe;
-  --muted-foreground: #7b7394;
-  --accent: #f3f0ff;
-  --accent-foreground: #1a0e35;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: rgba(139, 92, 246, 0.1);
-  --input: rgba(139, 92, 246, 0.1);
-  --ring: #8b5cf6;
-  --chart-1: #8b5cf6;
-  --chart-2: #a78bfa;
-  --chart-3: #c4b5fd;
-  --chart-4: #6d28d9;
-  --chart-5: #7c3aed;
-  --sidebar: #f5f3ff;
-  --sidebar-foreground: #1a0e35;
-  --sidebar-primary: #8b5cf6;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #ede9fe;
-  --sidebar-accent-foreground: #1a0e35;
-  --sidebar-border: rgba(139, 92, 246, 0.08);
-  --sidebar-ring: #8b5cf6;
-}
-
-/* ── Dark theme ── */
-.dark {
+  /* ── Dark theme (only) ── */
   --th-bg-deep: #06010f;
   --th-bg-purple: #0d0520;
   --th-bg-card: #160a30;
@@ -150,14 +97,14 @@
   --body-bg: linear-gradient(165deg, #06010f 0%, #0a0320 40%, #0d0520 100%);
   --nav-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 
-  /* shadcn dark */
+  /* shadcn */
   --background: #06010f;
   --foreground: #f0f4ff;
   --card: #160a30;
   --card-foreground: #f0f4ff;
   --popover: #160a30;
   --popover-foreground: #f0f4ff;
-  --primary: #8b5cf6;
+  --primary: #5E58D5;
   --primary-foreground: #ffffff;
   --secondary: #110826;
   --secondary-foreground: #f0f4ff;
@@ -166,22 +113,22 @@
   --accent: #1e0a47;
   --accent-foreground: #f0f4ff;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: rgba(139, 92, 246, 0.1);
+  --border: rgba(94, 88, 213, 0.1);
   --input: rgba(255, 255, 255, 0.1);
-  --ring: #8b5cf6;
-  --chart-1: #8b5cf6;
-  --chart-2: #a78bfa;
-  --chart-3: #c4b5fd;
-  --chart-4: #6d28d9;
-  --chart-5: #7c3aed;
+  --ring: #5E58D5;
+  --chart-1: #5E58D5;
+  --chart-2: #7E7AE0;
+  --chart-3: #B5B2EB;
+  --chart-4: #4540B0;
+  --chart-5: #524DC5;
   --sidebar: #050010;
   --sidebar-foreground: #f0f4ff;
-  --sidebar-primary: #8b5cf6;
+  --sidebar-primary: #5E58D5;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #110826;
   --sidebar-accent-foreground: #f0f4ff;
-  --sidebar-border: rgba(139, 92, 246, 0.08);
-  --sidebar-ring: #8b5cf6;
+  --sidebar-border: rgba(94, 88, 213, 0.08);
+  --sidebar-ring: #5E58D5;
 }
 
 @layer base {
@@ -208,17 +155,29 @@
 }
 
 :root {
-  --grain-opacity: 0.015;
-}
-.dark {
   --grain-opacity: 0.03;
 }
 
 /* ── Glow effects ── */
 .glow-purple {
-  box-shadow: 0 0 60px rgba(139, 92, 246, 0.15), 0 0 120px rgba(139, 92, 246, 0.05);
+  box-shadow: 0 0 60px rgba(94, 88, 213, 0.15), 0 0 120px rgba(94, 88, 213, 0.05);
 }
 
 .glow-line {
-  background: linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.3) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(94, 88, 213, 0.3) 50%, transparent 100%);
+}
+
+/* ── Section blend — smooth gradient between sections ── */
+.section-blend::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 5, 32, 0.7) 0%,
+    transparent 18%,
+    transparent 82%,
+    rgba(13, 5, 32, 0.7) 100%
+  );
 }

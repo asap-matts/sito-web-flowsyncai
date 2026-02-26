@@ -42,7 +42,7 @@ export default function FaqSection() {
   };
 
   return (
-    <section id="faq" className="relative py-28">
+    <section id="faq" className="section-blend relative py-28">
       {/* Decorative separator */}
       <div className="mx-auto mb-20 h-px max-w-5xl glow-line" />
 
@@ -85,7 +85,7 @@ export default function FaqSection() {
                   onClick={() => toggle(i)}
                   className={`w-full flex items-center justify-between gap-4 rounded-xl border px-6 py-5 text-left transition-all duration-300 ${
                     isOpen
-                      ? "border-accent/25 bg-accent/[0.06] shadow-[0_0_20px_rgba(139,92,246,0.08)]"
+                      ? "border-accent/25 bg-accent/[0.06] shadow-[0_0_20px_rgba(94,88,213,0.08)]"
                       : "border-subtle bg-accent/[0.03] hover:border-accent/15 hover:bg-accent/[0.06]"
                   }`}
                 >

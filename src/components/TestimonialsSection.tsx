@@ -127,7 +127,7 @@ export default function TestimonialsSection() {
   );
 
   return (
-    <section className="relative py-28">
+    <section className="section-blend relative py-28">
       {/* Decorative separator */}
       <div className="mx-auto mb-20 h-px max-w-5xl glow-line" />
 
@@ -159,7 +159,7 @@ export default function TestimonialsSection() {
           {/* Left arrow — neon style */}
           <button
             onClick={() => paginate(-1)}
-            className="group/btn relative flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-full border border-accent/20 bg-accent/[0.05] text-accent-bright transition-all duration-300 hover:border-accent/50 hover:bg-accent/15 hover:shadow-[0_0_20px_rgba(139,92,246,0.3),0_0_40px_rgba(139,92,246,0.15),inset_0_0_12px_rgba(139,92,246,0.1)]"
+            className="group/btn relative flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-full border border-accent/20 bg-accent/[0.05] text-accent-bright transition-all duration-300 hover:border-accent/50 hover:bg-accent/15 hover:shadow-[0_0_20px_rgba(94,88,213,0.3),0_0_40px_rgba(94,88,213,0.15),inset_0_0_12px_rgba(94,88,213,0.1)]"
             aria-label="Precedente"
           >
             {/* Neon ring pulse on hover */}
@@ -182,10 +182,10 @@ export default function TestimonialsSection() {
                   style={{
                     background:
                       direction > 0
-                        ? "radial-gradient(ellipse at right center, rgba(139,92,246,0.2) 0%, transparent 70%)"
-                        : "radial-gradient(ellipse at left center, rgba(139,92,246,0.2) 0%, transparent 70%)",
+                        ? "radial-gradient(ellipse at right center, rgba(94,88,213,0.2) 0%, transparent 70%)"
+                        : "radial-gradient(ellipse at left center, rgba(94,88,213,0.2) 0%, transparent 70%)",
                     boxShadow:
-                      "inset 0 0 60px rgba(139,92,246,0.1), 0 0 40px rgba(139,92,246,0.05)",
+                      "inset 0 0 60px rgba(94,88,213,0.1), 0 0 40px rgba(94,88,213,0.05)",
                   }}
                 />
               )}
@@ -204,9 +204,9 @@ export default function TestimonialsSection() {
                     className="pointer-events-none absolute top-0 left-[10%] right-[10%] z-20 h-px origin-center"
                     style={{
                       background:
-                        "linear-gradient(90deg, transparent, rgba(167,139,250,0.8), rgba(139,92,246,1), rgba(167,139,250,0.8), transparent)",
+                        "linear-gradient(90deg, transparent, rgba(126,122,224,0.8), rgba(94,88,213,1), rgba(126,122,224,0.8), transparent)",
                       boxShadow:
-                        "0 0 8px rgba(139,92,246,0.6), 0 0 20px rgba(139,92,246,0.3)",
+                        "0 0 8px rgba(94,88,213,0.6), 0 0 20px rgba(94,88,213,0.3)",
                     }}
                   />
                   {/* Bottom edge */}
@@ -222,9 +222,9 @@ export default function TestimonialsSection() {
                     className="pointer-events-none absolute bottom-0 left-[10%] right-[10%] z-20 h-px origin-center"
                     style={{
                       background:
-                        "linear-gradient(90deg, transparent, rgba(167,139,250,0.8), rgba(139,92,246,1), rgba(167,139,250,0.8), transparent)",
+                        "linear-gradient(90deg, transparent, rgba(126,122,224,0.8), rgba(94,88,213,1), rgba(126,122,224,0.8), transparent)",
                       boxShadow:
-                        "0 0 8px rgba(139,92,246,0.6), 0 0 20px rgba(139,92,246,0.3)",
+                        "0 0 8px rgba(94,88,213,0.6), 0 0 20px rgba(94,88,213,0.3)",
                     }}
                   />
                 </>
@@ -256,7 +256,7 @@ export default function TestimonialsSection() {
                       ease,
                       delay: 0.1 + i * 0.08,
                     }}
-                    className="group relative flex flex-col rounded-2xl border border-subtle bg-bg-purple-light/50 p-7 backdrop-blur-sm transition-all duration-500 hover:border-accent/20 hover:bg-bg-purple-light/80 hover:shadow-[0_0_25px_rgba(139,92,246,0.08)]"
+                    className="group relative flex flex-col rounded-2xl border border-subtle bg-bg-purple-light/50 p-7 backdrop-blur-sm transition-all duration-500 hover:border-accent/20 hover:bg-bg-purple-light/80 hover:shadow-[0_0_25px_rgba(94,88,213,0.08)]"
                   >
                     {/* Quote icon */}
                     <Quote className="mb-4 h-8 w-8 text-accent/30" />
@@ -294,7 +294,7 @@ export default function TestimonialsSection() {
           {/* Right arrow — neon style */}
           <button
             onClick={() => paginate(1)}
-            className="group/btn relative flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-full border border-accent/20 bg-accent/[0.05] text-accent-bright transition-all duration-300 hover:border-accent/50 hover:bg-accent/15 hover:shadow-[0_0_20px_rgba(139,92,246,0.3),0_0_40px_rgba(139,92,246,0.15),inset_0_0_12px_rgba(139,92,246,0.1)]"
+            className="group/btn relative flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-full border border-accent/20 bg-accent/[0.05] text-accent-bright transition-all duration-300 hover:border-accent/50 hover:bg-accent/15 hover:shadow-[0_0_20px_rgba(94,88,213,0.3),0_0_40px_rgba(94,88,213,0.15),inset_0_0_12px_rgba(94,88,213,0.1)]"
             aria-label="Successivo"
           >
             <span className="pointer-events-none absolute inset-0 rounded-full opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100 group-hover/btn:animate-ping border border-accent/30" />
@@ -315,7 +315,7 @@ export default function TestimonialsSection() {
               }}
               className={`h-2 rounded-full transition-all duration-500 ${
                 i === page
-                  ? "w-7 bg-accent shadow-[0_0_8px_rgba(139,92,246,0.6),0_0_16px_rgba(139,92,246,0.3)]"
+                  ? "w-7 bg-accent shadow-[0_0_8px_rgba(94,88,213,0.6),0_0_16px_rgba(94,88,213,0.3)]"
                   : "w-2 bg-accent/15 hover:bg-accent/30"
               }`}
               aria-label={`Pagina ${i + 1}`}

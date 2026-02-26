@@ -28,7 +28,7 @@ const pillars = [
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-28">
+    <section id="about" className="section-blend relative py-28">
       {/* Decorative separator */}
       <div className="mx-auto mb-20 h-px max-w-5xl glow-line" />
 
