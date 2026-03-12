@@ -66,7 +66,7 @@ export default function ServicesSection() {
           <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold leading-tight text-ice">
             Soluzioni AI costruite
             <br />
-            <span className="bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
+            <span className="font-accent italic pr-1 bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
               intorno al tuo business
             </span>
           </h2>
@@ -82,10 +82,14 @@ export default function ServicesSection() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
-              className="group relative rounded-2xl border border-subtle bg-bg-purple-light/50 p-7 backdrop-blur-sm transition-all duration-500 hover:border-accent/20 hover:bg-bg-purple-light/80 hover:shadow-[0_0_40px_rgba(94,88,213,0.08)]"
+              whileHover={{
+                y: -6,
+                transition: { type: "spring", stiffness: 300, damping: 20 },
+              }}
+              className="neon-card group relative rounded-2xl border bg-bg-purple-light/50 p-7 backdrop-blur-sm hover:bg-bg-purple-light/80"
             >
               {/* Icon */}
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent-bright transition-colors duration-300 group-hover:bg-accent/20">
+              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent-bright transition-all duration-300 group-hover:bg-accent/20 group-hover:scale-110">
                 <service.icon className="h-6 w-6" />
               </div>
 

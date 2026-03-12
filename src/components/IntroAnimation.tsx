@@ -94,11 +94,11 @@ export default function IntroAnimation({
               backdropFilter: "blur(40px)",
               WebkitBackdropFilter: "blur(40px)",
             }}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             exit={{
               opacity: 0,
               backdropFilter: "blur(0px)",
-              WebkitBackdropFilter: "blur(0px)",
-            }}
+            } as any}
             transition={{ duration: REVEAL_DURATION, ease }}
           >
             {/* Glow orb behind text */}

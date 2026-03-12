@@ -105,7 +105,7 @@ function OutreachChart() {
   return (
     <div
       ref={chartRef}
-      className="relative flex h-full flex-col rounded-2xl border border-subtle bg-bg-purple-light/30 p-6 backdrop-blur-sm"
+      className="neon-card relative flex h-full flex-col rounded-2xl border bg-bg-purple-light/30 p-6 backdrop-blur-sm"
     >
       {/* Decorative glow */}
       <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-accent/[0.08] via-transparent to-accent-deep/[0.06] pointer-events-none" />
@@ -261,7 +261,7 @@ function OutreachChart() {
         initial={{ opacity: 0, y: 15 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 1.4, ease }}
-        className="relative mt-6 grid grid-cols-3 gap-4 rounded-xl border border-subtle bg-bg-purple-light/40 p-4"
+        className="neon-card relative mt-6 grid grid-cols-3 gap-4 rounded-xl border bg-bg-purple-light/40 p-4"
       >
         {stats.map((stat) => (
           <div key={stat.label} className="text-center">
@@ -316,7 +316,7 @@ export default function OutreachProjectPage() {
               </p>
 
               {/* Value proposition */}
-              <div className="mt-8 rounded-xl border border-subtle bg-bg-purple-light/50 p-5">
+              <div className="neon-card mt-8 rounded-xl border bg-bg-purple-light/50 p-5">
                 <p className="font-body text-sm font-medium text-accent-bright">
                   A chi si rivolge
                 </p>

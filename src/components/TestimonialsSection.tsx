@@ -148,7 +148,7 @@ export default function TestimonialsSection() {
           </span>
           <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold leading-tight text-ice">
             Cosa dicono{" "}
-            <span className="bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
+            <span className="font-accent italic pr-1 bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
               i nostri clienti
             </span>
           </h2>
@@ -256,7 +256,7 @@ export default function TestimonialsSection() {
                       ease,
                       delay: 0.1 + i * 0.08,
                     }}
-                    className="group relative flex flex-col rounded-2xl border border-subtle bg-bg-purple-light/50 p-7 backdrop-blur-sm transition-all duration-500 hover:border-accent/20 hover:bg-bg-purple-light/80 hover:shadow-[0_0_25px_rgba(94,88,213,0.08)]"
+                    className="neon-card group relative flex flex-col rounded-2xl border bg-bg-purple-light/50 p-7 backdrop-blur-sm hover:bg-bg-purple-light/80"
                   >
                     {/* Quote icon */}
                     <Quote className="mb-4 h-8 w-8 text-accent/30" />

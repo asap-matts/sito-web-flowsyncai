@@ -63,7 +63,7 @@ export default function FaqSection() {
           </span>
           <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold leading-tight text-ice">
             Domande{" "}
-            <span className="bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
+            <span className="font-accent italic pr-1 bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
               frequenti
             </span>
           </h2>
@@ -93,7 +93,10 @@ export default function FaqSection() {
                     {faq.question}
                   </span>
                   <motion.span
-                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    animate={{
+                      rotate: isOpen ? 180 : 0,
+                      scale: isOpen ? 1.15 : 1,
+                    }}
                     transition={{ duration: 0.3, ease }}
                     className="flex-shrink-0"
                   >
@@ -114,9 +117,14 @@ export default function FaqSection() {
                       transition={{ duration: 0.35, ease }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pt-3 pb-5 font-body text-[length:var(--fs-text)] leading-relaxed text-text-secondary">
+                      <motion.p
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, ease, delay: 0.1 }}
+                        className="px-6 pt-3 pb-5 font-body text-[length:var(--fs-text)] leading-relaxed text-text-secondary"
+                      >
                         {faq.answer}
-                      </p>
+                      </motion.p>
                     </motion.div>
                   )}
                 </AnimatePresence>

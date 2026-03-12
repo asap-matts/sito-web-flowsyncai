@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, animate, useInView } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -89,6 +89,39 @@ function useWaveCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
   }, [canvasRef]);
 }
 
+/* ── Animated counter for stats ── */
+function AnimatedStat({ value, label }: { value: string; label: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [display, setDisplay] = useState(0);
+
+  // Parse numeric portion and prefix/suffix
+  const match = value.match(/^([^\d]*)([\d]+)(.*)/);
+  const prefix = match?.[1] ?? "";
+  const num = match ? parseInt(match[2], 10) : 0;
+  const suffix = match?.[3] ?? "";
+  const isCountable = match !== null && !value.includes("/");
+
+  useEffect(() => {
+    if (!isInView || !isCountable) return;
+    const controls = animate(0, num, {
+      duration: 1.8,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setDisplay(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [isInView, isCountable, num]);
+
+  return (
+    <div ref={ref} className="text-center">
+      <div className="font-display text-2xl md:text-3xl font-bold bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
+        {isCountable ? `${prefix}${display}${suffix}` : value}
+      </div>
+      <div className="mt-1 font-body text-sm text-text-muted">{label}</div>
+    </div>
+  );
+}
+
 export default function HeroSection() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useWaveCanvas(canvasRef);
@@ -127,19 +160,21 @@ export default function HeroSection() {
           </span>
         </motion.div>
 
-        {/* Main headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.4, ease, delay: 0.5 }}
-          className="font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] tracking-tight text-ice"
-        >
-          Il partner AI definitivo
-          <br />
-          <span className="bg-gradient-to-r from-accent-bright via-accent to-accent-deep bg-clip-text text-transparent">
-            per la tua azienda
-          </span>
-        </motion.h1>
+        {/* Main headline — clip reveal */}
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease, delay: 0.5 }}
+            className="font-display text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.1] tracking-tight text-ice"
+          >
+            Il partner AI definitivo
+            <br />
+            <span className="font-accent italic pr-1 bg-gradient-to-r from-accent-bright via-accent to-accent-deep bg-clip-text text-transparent">
+              per la tua azienda
+            </span>
+          </motion.h1>
+        </div>
 
         {/* Subtitle */}
         <motion.p
@@ -180,22 +215,22 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.4, delay: 1.4 }}
+          transition={{ duration: 1.0, delay: 1.4 }}
           className="mt-20 grid grid-cols-3 gap-8 border-t border-subtle pt-10"
         >
           {[
             { value: "24/7", label: "Operatività continua" },
             { value: "+40%", label: "Efficienza media" },
             { value: "-30%", label: "Costi operativi" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div className="font-display text-2xl md:text-3xl font-bold bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
-                {stat.value}
-              </div>
-              <div className="mt-1 font-body text-sm text-text-muted">
-                {stat.label}
-              </div>
-            </div>
+          ].map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease, delay: 1.6 + i * 0.15 }}
+            >
+              <AnimatedStat value={stat.value} label={stat.label} />
+            </motion.div>
           ))}
         </motion.div>
       </div>

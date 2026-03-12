@@ -30,6 +30,7 @@
   /* Fonts */
   --font-display: var(--font-red-hat-display), "Red Hat Display", system-ui, sans-serif;
   --font-body: var(--font-glacial), "Glacial Indifference", system-ui, sans-serif;
+  --font-accent: var(--font-playfair), "Cormorant Garamond", Georgia, serif;
 
   /* shadcn overrides */
   --color-background: var(--background);
@@ -158,6 +159,20 @@
   --grain-opacity: 0.03;
 }
 
+/* ── Marker underline animation ── */
+.marker-underline {
+  background-image: linear-gradient(
+    120deg,
+    rgba(94, 88, 213, 0.45) 0%,
+    rgba(126, 122, 224, 0.35) 100%
+  );
+  background-repeat: no-repeat;
+  background-position: 0 92%;
+  transition: background-size 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
 /* ── Glow effects ── */
 .glow-purple {
   box-shadow: 0 0 60px rgba(94, 88, 213, 0.15), 0 0 120px rgba(94, 88, 213, 0.05);
@@ -165,6 +180,52 @@
 
 .glow-line {
   background: linear-gradient(90deg, transparent 0%, rgba(94, 88, 213, 0.3) 50%, transparent 100%);
+}
+
+/* ── Neon card glow ── */
+.neon-card {
+  border-color: rgba(94, 88, 213, 0.25);
+  box-shadow:
+    0 0 8px -2px rgba(94, 88, 213, 0.25),
+    0 0 20px -4px rgba(94, 88, 213, 0.15),
+    inset 0 0 12px -6px rgba(126, 122, 224, 0.1);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+}
+
+.neon-card:hover {
+  border-color: rgba(126, 122, 224, 0.4);
+  box-shadow:
+    0 0 12px -2px rgba(94, 88, 213, 0.4),
+    0 0 35px -6px rgba(94, 88, 213, 0.25),
+    0 0 60px -10px rgba(94, 88, 213, 0.1),
+    inset 0 0 16px -6px rgba(126, 122, 224, 0.15);
+}
+
+/* ── Marketing card animations ── */
+@keyframes card-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-glow {
+  0%, 100% {
+    box-shadow: 0 0 12px -2px rgba(94, 88, 213, 0.15), 0 0 4px -1px rgba(126, 122, 224, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 24px -2px rgba(94, 88, 213, 0.3), 0 0 8px -1px rgba(126, 122, 224, 0.2);
+  }
+}
+
+.card-animate {
+  animation: card-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
+             card-glow 4s ease-in-out infinite;
+  animation-delay: var(--delay, 0s), calc(var(--delay, 0s) + 0.7s);
 }
 
 /* ── Section blend — smooth gradient between sections ── */

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Red_Hat_Display } from "next/font/google";
+import { Red_Hat_Display, Cormorant_Garamond } from "next/font/google";
 import localFont from "next/font/local";
 import ThemeProvider from "@/components/ThemeProvider";
 import "./globals.css";
@@ -7,6 +7,14 @@ import "./globals.css";
 const redHatDisplay = Red_Hat_Display({
   subsets: ["latin"],
   variable: "--font-red-hat-display",
+  display: "swap",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -41,7 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${redHatDisplay.variable} ${glacialIndifference.variable} font-body antialiased`}
+        className={`${redHatDisplay.variable} ${glacialIndifference.variable} ${cormorantGaramond.variable} font-body antialiased`}
       >
         <ThemeProvider>{children}</ThemeProvider>
       </body>

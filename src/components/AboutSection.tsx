@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Zap, Shield, Clock } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -27,6 +28,9 @@ const pillars = [
 ];
 
 export default function AboutSection() {
+  const markerRef = useRef(null);
+  const markerInView = useInView(markerRef, { once: true, margin: "-60px" });
+
   return (
     <section id="about" className="section-blend relative py-28">
       {/* Decorative separator */}
@@ -50,7 +54,7 @@ export default function AboutSection() {
             <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold leading-tight text-ice">
               Non vendiamo AI.
               <br />
-              <span className="bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
+              <span className="font-accent italic pr-1 bg-gradient-to-r from-accent-bright to-accent bg-clip-text text-transparent">
                 Risolviamo problemi.
               </span>
             </h2>
@@ -61,8 +65,16 @@ export default function AboutSection() {
               costruire sistemi che le risolvono concretamente.
             </p>
             <p className="mt-4 font-body text-[length:var(--fs-text)] leading-relaxed text-text-secondary">
-              Ogni soluzione è progettata su misura, integrata nei tuoi processi
-              esistenti e pensata per scalare con la tua crescita.
+              <span
+                ref={markerRef}
+                className="marker-underline"
+                style={{
+                  backgroundSize: markerInView ? "100% 8px" : "0% 8px",
+                }}
+              >
+                Ogni soluzione è progettata su misura, integrata nei tuoi processi
+                esistenti e pensata per scalare con la tua crescita.
+              </span>
             </p>
           </motion.div>
 
@@ -75,9 +87,13 @@ export default function AboutSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.7, ease, delay: i * 0.1 }}
-                className="group flex gap-4 rounded-xl border border-subtle bg-accent/[0.03] p-5 transition-all duration-300 hover:border-accent/15 hover:bg-accent/[0.06]"
+                whileHover={{
+                  x: 6,
+                  transition: { type: "spring", stiffness: 300, damping: 20 },
+                }}
+                className="neon-card group flex gap-4 rounded-xl border bg-accent/[0.03] p-5 hover:bg-accent/[0.06]"
               >
-                <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent-bright">
+                <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center text-accent-bright transition-transform duration-300 group-hover:scale-110">
                   <pillar.icon className="h-5 w-5" />
                 </div>
                 <div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Zap, Users, Brain, Rocket } from "lucide-react";
+import NetworkParticles from "@/components/NetworkParticles";
 
 const features = [
   {
@@ -66,7 +67,7 @@ export default function HRProjectPage() {
               </p>
 
               {/* Target */}
-              <div className="mt-8 rounded-xl border border-subtle bg-bg-purple-light/50 p-5">
+              <div className="neon-card mt-8 rounded-xl border bg-bg-purple-light/50 p-5">
                 <p className="font-body text-sm font-medium text-accent-bright">
                   A chi si rivolge
                 </p>
@@ -97,16 +98,10 @@ export default function HRProjectPage() {
               </div>
             </div>
 
-            {/* Right — Image placeholder */}
+            {/* Right — Network particle animation */}
             <div className="relative hidden lg:block">
-              <div className="sticky top-32 aspect-[4/5] w-full rounded-2xl border border-subtle bg-bg-purple-light/30 backdrop-blur-sm">
-                {/* Decorative glow */}
-                <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-accent/[0.08] via-transparent to-accent-deep/[0.06]" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="font-body text-sm text-text-muted">
-                    Immagine in arrivo
-                  </p>
-                </div>
+              <div className="sticky top-32 aspect-[4/5] w-full overflow-hidden rounded-2xl">
+                <NetworkParticles />
               </div>
             </div>
           </div>

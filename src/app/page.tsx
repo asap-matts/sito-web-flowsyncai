@@ -9,7 +9,6 @@ import BookingSection from "@/components/BookingSection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 import IntroAnimation from "@/components/IntroAnimation";
-
 export default function Home() {
   return (
     <IntroAnimation>
