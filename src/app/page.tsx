@@ -5,6 +5,7 @@ import ProjectsSection from "@/components/ProjectsSection";
 import AboutSection from "@/components/AboutSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FaqSection from "@/components/FaqSection";
+import BookingSection from "@/components/BookingSection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
 import IntroAnimation from "@/components/IntroAnimation";
@@ -22,6 +23,7 @@ export default function Home() {
           <AboutSection />
           <TestimonialsSection />
           <FaqSection />
+          <BookingSection />
           <CtaSection />
         </main>
 

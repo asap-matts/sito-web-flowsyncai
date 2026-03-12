@@ -7,6 +7,7 @@ const navItems = [
   { label: "Progetti", href: "#projects" },
   { label: "Chi Siamo", href: "#about" },
   { label: "FAQ", href: "#faq" },
+  { label: "Appuntamenti", href: "#booking" },
   { label: "Contatti", href: "#contact" },
 ];
 
@@ -47,7 +48,7 @@ export default function Header() {
       className="fixed top-0 left-0 right-0 z-40 w-full px-4 sm:px-6 pt-5"
     >
       <nav
-        className="mx-auto max-w-5xl rounded-2xl border border-subtle bg-nav/70 px-6 py-3 backdrop-blur-2xl"
+        className="mx-auto max-w-6xl rounded-2xl border border-subtle bg-nav/70 px-6 py-3 backdrop-blur-2xl"
         style={{ boxShadow: "var(--nav-shadow)" }}
       >
         <div className="relative flex items-center justify-between">
@@ -80,7 +81,7 @@ export default function Header() {
                   stiffness: 400,
                   damping: 22,
                 }}
-                className="inline-block rounded-lg px-4 py-2 font-body text-[length:var(--fs-text)] font-medium text-ice/60 transition-colors duration-300 hover:text-ice"
+                className="inline-block whitespace-nowrap rounded-lg px-3 py-2 font-body text-[length:var(--fs-text)] font-medium text-ice/60 transition-colors duration-300 hover:text-ice"
               >
                 {item.label}
               </motion.a>

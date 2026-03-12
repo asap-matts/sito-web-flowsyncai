@@ -1,26 +1,35 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Only letters from "FlowSync AI"
-const FLOW_CHARS = "FlowSyncAI";
 const FINAL_TEXT = "FlowSync AI";
+const ANIM_DURATION = 2.5; // seconds — total letter convergence time
+const REVEAL_DURATION = 0.8; // overlay fade-out
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-function randomFlowChar() {
-  return FLOW_CHARS[Math.floor(Math.random() * FLOW_CHARS.length)];
+interface LetterStart {
+  char: string;
+  x: number; // px offset from final position
+  y: number;
+  rotate: number;
+  scale: number;
 }
 
-interface ScatteredChar {
-  id: number;
-  char: string;
-  x: number;
-  y: number;
-  fontSize: number;
-  opacity: number;
-  delay: number;
+function generateLetterStarts(): LetterStart[] {
+  return FINAL_TEXT.split("").map((char) => {
+    // Random position across the viewport (offset from center)
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 300 + Math.random() * 400;
+    return {
+      char,
+      x: Math.cos(angle) * radius * (Math.random() > 0.5 ? 1 : -1),
+      y: Math.sin(angle) * radius * (Math.random() > 0.5 ? 1 : -1),
+      rotate: -180 + Math.random() * 360,
+      scale: 0.3 + Math.random() * 0.7,
+    };
+  });
 }
 
 export default function IntroAnimation({
@@ -28,122 +37,48 @@ export default function IntroAnimation({
 }: {
   children: React.ReactNode;
 }) {
-  // Skip intro if user already visited this session (e.g. returning from a project page)
-  const alreadySeen = typeof window !== "undefined" && sessionStorage.getItem("intro-seen") === "1";
+  const [phase, setPhase] = useState<"init" | "scatter" | "converge" | "done">(
+    "init"
+  );
 
-  const [phase, setPhase] = useState<
-    "scatter" | "converge" | "reveal" | "done"
-  >(alreadySeen ? "done" : "scatter");
-  const [displayChars, setDisplayChars] = useState<ScatteredChar[]>([]);
-  const [scrambleText, setScrambleText] = useState("");
-  const rafRef = useRef<number>(0);
+  // Generate random start positions once (stable across renders)
+  const letters = useMemo(() => generateLetterStarts(), []);
 
-  // Generate scattered characters using only FlowSync AI letters
-  const generateChars = useCallback(() => {
-    const chars: ScatteredChar[] = [];
-    const totalChars = 50;
-
-    for (let i = 0; i < totalChars; i++) {
-      chars.push({
-        id: i,
-        char: randomFlowChar(),
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        fontSize: 16 + Math.random() * 28,
-        opacity: 0.12 + Math.random() * 0.35,
-        delay: Math.random() * 1.2,
-      });
+  // Check sessionStorage on mount
+  useEffect(() => {
+    if (sessionStorage.getItem("intro-seen") === "1") {
+      setPhase("done");
+    } else {
+      setPhase("scatter");
     }
-
-    return chars;
   }, []);
 
-  // Phase 1: Scatter — letters from "FlowSync AI" appear scattered
-  useEffect(() => {
-    const chars = generateChars();
-    setDisplayChars(chars);
-
-    // Show initial scramble text immediately with mixed FlowSync letters
-    setScrambleText(
-      FINAL_TEXT.split("")
-        .map((c) => (c === " " ? " " : randomFlowChar()))
-        .join("")
-    );
-
-    // After 1.5s, start converging
-    const convergeTimer = setTimeout(() => setPhase("converge"), 1500);
-    return () => clearTimeout(convergeTimer);
-  }, [generateChars]);
-
-  // Keep scrambling during scatter phase
+  // scatter → converge almost immediately (letters appear then fly in)
   useEffect(() => {
     if (phase !== "scatter") return;
-
-    const interval = setInterval(() => {
-      setScrambleText(
-        FINAL_TEXT.split("")
-          .map((c) => (c === " " ? " " : randomFlowChar()))
-          .join("")
-      );
-    }, 120);
-
-    return () => clearInterval(interval);
+    // Brief moment so letters render at scattered positions, then converge
+    const t = setTimeout(() => setPhase("converge"), 50);
+    return () => clearTimeout(t);
   }, [phase]);
 
-  // Phase 2: Converge — letters resolve one by one into "FlowSync AI"
+  // After converge animation finishes → done
   useEffect(() => {
     if (phase !== "converge") return;
-
-    let frame = 0;
-    const totalFrames = 170; // ~2.8s at 60fps
-
-    const animate = () => {
-      frame++;
-      const progress = Math.min(frame / totalFrames, 1);
-
-      // Very slow ease — letters lock in gradually
-      const easedProgress = 1 - Math.pow(1 - progress, 2.5);
-
-      const scrambled = FINAL_TEXT.split("")
-        .map((char, i) => {
-          if (char === " ") return " ";
-          if (i < FINAL_TEXT.length * easedProgress) return char;
-          return randomFlowChar();
-        })
-        .join("");
-
-      setScrambleText(scrambled);
-
-      if (frame < totalFrames) {
-        rafRef.current = requestAnimationFrame(animate);
-      } else {
-        // Text resolved — go straight to glass reveal
-        setPhase("reveal");
-      }
-    };
-
-    rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [phase]);
-
-  // Phase 3: Reveal — overlay exits
-  useEffect(() => {
-    if (phase !== "reveal") return;
-
-    const doneTimer = setTimeout(() => {
+    const t = setTimeout(() => {
       setPhase("done");
       sessionStorage.setItem("intro-seen", "1");
-    }, 1400);
-    return () => clearTimeout(doneTimer);
+    }, (ANIM_DURATION + REVEAL_DURATION) * 1000);
+    return () => clearTimeout(t);
   }, [phase]);
+
+  if (phase === "init") return null;
 
   return (
     <>
-      {/* Landing page always rendered behind the overlay */}
       <div
         style={{
           opacity: phase === "done" ? 1 : undefined,
-          visibility: phase === "done" ? "visible" : "visible",
+          visibility: "visible",
         }}
       >
         {children}
@@ -155,105 +90,126 @@ export default function IntroAnimation({
             key="intro-overlay"
             className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
             style={{
+              backgroundColor: "rgba(6, 1, 15, 0.95)",
               backdropFilter: "blur(40px)",
               WebkitBackdropFilter: "blur(40px)",
-              backgroundColor: "rgba(6, 1, 15, 0.88)",
             }}
-            animate={
-              phase === "reveal"
-                ? {
-                    backgroundColor: "rgba(6, 1, 15, 0.3)",
-                    backdropFilter: "blur(8px)",
-                    WebkitBackdropFilter: "blur(8px)",
-                  }
-                : undefined
-            }
             exit={{
               opacity: 0,
               backdropFilter: "blur(0px)",
               WebkitBackdropFilter: "blur(0px)",
-              backgroundColor: "rgba(6, 1, 15, 0)",
             }}
-            transition={{ duration: 1.4, ease }}
+            transition={{ duration: REVEAL_DURATION, ease }}
           >
-            {/* Scattered FlowSync letters */}
-            {displayChars.map((sc) => (
-              <motion.span
-                key={sc.id}
-                className="absolute font-display select-none pointer-events-none font-bold"
-                style={{
-                  left: `${sc.x}%`,
-                  top: `${sc.y}%`,
-                  fontSize: sc.fontSize,
-                  color: "rgba(94, 88, 213, 0.35)",
-                }}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={
-                  phase === "scatter"
-                    ? {
-                        opacity: sc.opacity,
-                        scale: 1,
-                      }
-                    : {
-                        opacity: 0,
-                        x: `${50 - sc.x}vw`,
-                        y: `${50 - sc.y}vh`,
-                        scale: 0.2,
-                      }
-                }
-                transition={{
-                  duration: phase === "scatter" ? 1 : 1.8,
-                  delay: sc.delay,
-                  ease,
-                }}
-              >
-                {sc.char}
-              </motion.span>
-            ))}
-
             {/* Glow orb behind text */}
             <motion.div
-              className="absolute h-[300px] w-[300px] rounded-full bg-accent/[0.1] blur-[80px]"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={
-                phase !== "scatter"
-                  ? { opacity: 1, scale: 1 }
-                  : { opacity: 0, scale: 0.5 }
-              }
-              transition={{ duration: 2, ease }}
+              className="absolute h-[300px] w-[300px] rounded-full bg-accent/[0.12] blur-[100px]"
+              initial={{ opacity: 0, scale: 0.3 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: ANIM_DURATION * 0.6, ease }}
             />
 
-            {/* Center scramble text */}
-            <motion.div
-              className="relative z-10"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={
-                phase === "reveal"
-                  ? { opacity: 0, scale: 1.05, filter: "blur(6px)" }
-                  : { opacity: 1, scale: 1, filter: "blur(0px)" }
-              }
-              transition={{
-                duration: phase === "reveal" ? 1.2 : 1,
-                ease,
-              }}
-            >
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-ice">
-                {scrambleText.split("").map((char, i) => (
-                  <span
+            {/* Letters container — inline so letters form the word at rest */}
+            <div className="relative z-10 flex items-center justify-center">
+              {letters.map((letter, i) => {
+                const isSpace = letter.char === " ";
+                const isConverging = phase === "converge";
+
+                // Stagger: first letters arrive slightly before last ones
+                const staggerDelay = (i / letters.length) * 0.3;
+                // Each letter takes most of the ANIM_DURATION to arrive
+                const letterDuration = ANIM_DURATION * 0.85;
+
+                return (
+                  <motion.span
                     key={i}
-                    className={
-                      i < FINAL_TEXT.length &&
-                      scrambleText[i] === FINAL_TEXT[i] &&
-                      FINAL_TEXT[i] !== " "
-                        ? "inline-block bg-gradient-to-r from-accent-bright via-accent to-accent-deep bg-clip-text text-transparent transition-colors duration-300"
-                        : "inline-block text-ice/50 transition-colors duration-300"
+                    className="inline-block font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight select-none"
+                    initial={{
+                      x: letter.x,
+                      y: letter.y,
+                      rotate: letter.rotate,
+                      scale: letter.scale,
+                      opacity: 0,
+                    }}
+                    animate={
+                      isConverging
+                        ? {
+                            x: 0,
+                            y: 0,
+                            rotate: 0,
+                            scale: 1,
+                            opacity: 1,
+                          }
+                        : {
+                            x: letter.x,
+                            y: letter.y,
+                            rotate: letter.rotate,
+                            scale: letter.scale,
+                            opacity: 0.5,
+                          }
                     }
+                    transition={{
+                      duration: letterDuration,
+                      delay: staggerDelay,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                    style={{
+                      width: isSpace ? "0.35em" : undefined,
+                      background: isConverging
+                        ? undefined
+                        : "rgba(94, 88, 213, 0.5)",
+                      WebkitBackgroundClip: isConverging ? undefined : "text",
+                      WebkitTextFillColor: isConverging ? undefined : "transparent",
+                    }}
                   >
-                    {char === " " ? "\u00A0" : char}
-                  </span>
-                ))}
-              </h1>
-            </motion.div>
+                    {isSpace ? "\u00A0" : (
+                      <motion.span
+                        className="inline-block"
+                        initial={{ color: "rgba(94, 88, 213, 0.6)" }}
+                        animate={
+                          isConverging
+                            ? { color: "rgba(240, 244, 255, 1)" }
+                            : { color: "rgba(94, 88, 213, 0.6)" }
+                        }
+                        transition={{
+                          duration: letterDuration * 0.5,
+                          delay: staggerDelay + letterDuration * 0.5,
+                          ease,
+                        }}
+                      >
+                        {letter.char}
+                      </motion.span>
+                    )}
+                  </motion.span>
+                );
+              })}
+            </div>
+
+            {/* Subtle particle trail — small dots that fade during convergence */}
+            {letters.map((letter, i) => {
+              if (letter.char === " ") return null;
+              return (
+                <motion.div
+                  key={`trail-${i}`}
+                  className="absolute h-1 w-1 rounded-full bg-accent-bright/40"
+                  initial={{
+                    x: letter.x,
+                    y: letter.y,
+                    opacity: 0,
+                  }}
+                  animate={
+                    phase === "converge"
+                      ? { x: 0, y: 0, opacity: [0, 0.6, 0] }
+                      : { x: letter.x, y: letter.y, opacity: 0 }
+                  }
+                  transition={{
+                    duration: ANIM_DURATION * 0.7,
+                    delay: (i / letters.length) * 0.2,
+                    ease,
+                  }}
+                />
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>

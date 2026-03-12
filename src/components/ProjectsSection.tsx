@@ -8,7 +8,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const projects = [
   { name: "HR", slug: "hr" },
   { name: "MARKETING AI", slug: "marketing-ai" },
-  { name: "OUTRICH", slug: "outrich" },
+  { name: "OUTREACH", slug: "outreach" },
 ];
 
 const cardVariants = {
